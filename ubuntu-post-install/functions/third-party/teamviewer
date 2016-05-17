@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# teamviewer
+function teamviewer {
+	show_info 'Downloading teamviewer...'
+	# Download Debian file
+	curl -O http://download.teamviewer.com/download/teamviewer_i386.deb
+	# Install package(s)
+	show_info 'Installing Dropbox...'
+	show_warning 'Requires root privileges'
+	sudo dpkg -i teamviewer*.deb
+	sudo apt-get install -fy
+	# Cleanup and finish
+	rm teamviewer*.deb
+    # Done
+    show_success 'Done.'
+    whiptail --title "Finished" --msgbox "Installation complete." 8 78
+	thirdparty
+}

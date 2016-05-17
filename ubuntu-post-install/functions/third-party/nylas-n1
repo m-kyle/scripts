@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Nylas N1
+function nylas-n1 {
+	show_info 'Downloading Nylas N1...'
+	# Download Debian file
+	curl -O https://edgehill.nylas.com/download?platform=linux-deb
+	# Install package(s)
+	show_info 'Installing Nylas N1...'
+	show_warning 'Requires root privileges'
+	sudo dpkg -i N1.deb
+	sudo apt-get install -fy
+	# Cleanup and finish
+	rm dropbox*.deb
+    # Done
+    show_success 'Done.'
+    whiptail --title "Finished" --msgbox "Installation complete." 8 78
+	thirdparty
+}

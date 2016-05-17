@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Google Play Music Desktop Player
+function google-play-music-desktop-player {
+	show_info 'Downloading Google Play Music Desktop Player...'
+	# Download Debian file that matches system architecture
+	case `uname -i` in
+	    i386|i486|i586|i686)
+	        curl -O https://github.com/MarshallOfSound/Google-Play-Music-Desktop-Player-UNOFFICIAL-/releases/download/v3.2.4/google-play-music-desktop-player_3.2.4_i386.deb
+	        ;;
+	    x86_64)
+	        curl -O https://github.com/MarshallOfSound/Google-Play-Music-Desktop-Player-UNOFFICIAL-/releases/download/v3.2.4/google-play-music-desktop-player_3.2.4_amd64.deb
+	        ;;
+	    *)
+	        show_error "No packages available to download that matches your system." && thirdparty
+	        ;;
+	esac
+	# Install package(s)
+	show_info 'Installing Google Play Music Desktop Player...'
+	show_warning 'Requires root privileges'
+	sudo dpkg -i google-play-music-desktop-player_3.2.4*.deb
+	sudo apt-get install -fy
+	# Cleanup and finish
+	rm google-play-music-desktop-player_3.2.4*.deb
+	# Done
+	show_success 'Done.'
+    whiptail --title "Finished" --msgbox "Installation complete." 8 78
+	thirdparty
+}

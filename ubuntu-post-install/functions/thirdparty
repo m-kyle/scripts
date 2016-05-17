@@ -1,0 +1,49 @@
+#!/bin/bash
+
+dir="$(dirname "$0")"
+
+source $dir/functions/third-party/dropbox
+source $dir/functions/third-party/enpass
+source $dir/functions/third-party/flux
+source $dir/functions/third-party/google-chrome
+source $dir/functions/third-party/google-play-music-desktop-player
+source $dir/functions/third-party/nylas-n1
+source $dir/functions/third-party/ohmyzsh
+source $dir/functions/third-party/spotify
+source $dir/functions/third-party/steam
+source $dir/functions/third-party/sublime-text3
+source $dir/functions/third-party/teamviewer
+source $dir/functions/third-party/vocal
+
+# Install Third-Party Applications
+function thirdparty {
+    eval `resize`
+    THIRDPARTY=$(whiptail \
+        --notags \
+        --title "Third-Party Installation" \
+        --menu "\nWhat third-party software would you like to install?" \
+        --ok-button "Install" \
+        --cancel-button "Go Back" \
+        $LINES $COLUMNS $(( $LINES - 12 )) \
+        'dropbox'                           'Dropbox' \
+        'enpass'                            'Enpass' \
+        'flux'                              'F.lux' \
+        'google-chrome'                     'Google Chrome' \
+        'google-play-music-desktop-player'  'Google Play Music Desktop Player' \
+        'nylas-n1'                          'Nylas N1' \
+        'ohmyzsh'                           'Oh My ZSH' \
+        'spotify'                           'Spotify' \
+        'steam'                             'Steam' \
+        'sublime-text3'                     'Sublime Text 3' \
+        'teamviewer'                        'Team Viewer' \
+        'vocal'                             'Vocal podcast app' \
+        3>&1 1>&2 2>&3)
+     
+    exitstatus=$?
+    if [ $exitstatus = 0 ]; then
+        clear && $THIRDPARTY
+    else
+        clear && main
+    fi
+}
+
